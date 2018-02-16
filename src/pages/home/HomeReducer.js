@@ -7,11 +7,11 @@ const ThoughtsReducer = function(state = [], action) {
   switch (action.type) {
     case types.ADD_THOUGHTS:
       state = action.thoughts;
-      console.log(action)
+      console.log(action);
     default:
       return state;
   }
-}
+};
 
 const FetchingReducer = function(state = {}, action) {
   // still use this is use for testing
@@ -27,7 +27,7 @@ const FetchingReducer = function(state = {}, action) {
     default:
       return state;
   }
-}
+};
 
 const HomeReducer = combineReducers({
   thoughts: ThoughtsReducer,

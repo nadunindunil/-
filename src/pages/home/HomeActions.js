@@ -5,7 +5,6 @@ export const START_FETCHING_THOUGHTS = 'START_FETCHING_THOUGHTS';
 export const ADD_THOUGHTS = 'ADD_THOUGHTS';
 export const FINISH_FETCHING_THOUGHTS = 'FINISH_FETCHING_THOUGHTS';
 
-
 export function addThoughtsList(thoughts) {
   return {
     type: 'ADD_THOUGHTS',
@@ -22,44 +21,48 @@ export const finishFetchingThoughts = () => ({
 });
 
 export function fetchThoughts() {
-  return function (dispatch) {
+  return function(dispatch) {
     dispatch(startFetchingThoughts());
 
-    firebase.database()
+    firebase
+      .database()
       .ref('thoughts')
       .orderByKey()
       .limitToLast(20)
-      .on('value', (snapshot) => {
+      .on('value', snapshot => {
         console.log(snapshot.val());
         // gets around Redux panicking about actions in reducers
         setTimeout(() => {
-          const thoughts = snapshotToArray(snapshot)|| [];
+          const thoughts = snapshotToArray(snapshot) || [];
 
-          dispatch(addThoughtsList(thoughts))
+          dispatch(addThoughtsList(thoughts));
           dispatch(finishFetchingThoughts());
         }, 0);
       });
-  }
+  };
 }
 
-export function postThought(thought){
-  return function (dispatch) {
+export function postThought(thought) {
+  return function(dispatch) {
     let Tht = {
-        data : thought
-      };
-      const newThtRef = firebase.database().ref('thoughts').push();
-      Tht.id = newThtRef.key;
-      newThtRef.set(Tht);
-  }
+      data: thought
+    };
+    const newThtRef = firebase
+      .database()
+      .ref('thoughts')
+      .push();
+    Tht.id = newThtRef.key;
+    newThtRef.set(Tht);
+  };
 }
 
-const snapshotToArray = function (snapshot){
+const snapshotToArray = function(snapshot) {
   let returnArr = [];
 
   snapshot.forEach(childSnapshot => {
-      let item = childSnapshot.val(); 
-      item.key = childSnapshot.key;
-      returnArr.push(item);
+    let item = childSnapshot.val();
+    item.key = childSnapshot.key;
+    returnArr.push(item);
   });
 
   return returnArr;

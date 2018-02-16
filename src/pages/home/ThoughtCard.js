@@ -5,11 +5,18 @@ class ThoughtCard extends Component {
   render() {
     return (
       <div>
-
-      <Card>
-        <p>{this.props.thought}</p>
-      </Card>
-        
+        <Card>
+          <p>
+            {this.props.thought.split('\n').map((item, key) => {
+              return (
+                <span key={key}>
+                  {item}
+                  <br />
+                </span>
+              );
+            })}
+          </p>
+        </Card>
       </div>
     );
   }
