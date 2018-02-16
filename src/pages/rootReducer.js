@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import number from './home/HomeReducer';
+import thoughtsView from './home/HomeReducer';
 
 const rootReducer = combineReducers({
-  number
+  thoughtsView
 });
 
 export default rootReducer;
