@@ -1,0 +1,33 @@
+{
+  "name": "kp",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "antd": "^3.1.6",
+    "babel-plugin-import": "^1.6.3",
+    "husky": "^0.14.3",
+    "lint-staged": "^6.1.0",
+    "prettier": "^1.10.2",
+    "react": "^16.2.0",
+    "react-app-rewire-less": "^2.1.0",
+    "react-app-rewired": "^1.4.1",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.0",
+    "redux": "^3.7.2"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --single-quote --write --print-width 100",
+      "git add"
+    ]
+  },
+  "scripts": {
+    "precommit": "lint-staged",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
