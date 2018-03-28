@@ -1,47 +1,24 @@
 import React, { Component } from 'react';
-import { Layout, Icon, Menu } from 'antd';
-import { NavLink, withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
-
-const { Header } = Layout;
 
 class Navbar extends Component {
-  static propTypes = {
-    location: PropTypes.object.isRequired
-  };
-
   render() {
-    const { location } = this.props;
     return (
-      <Header style={{ width: '100%' }}>
-        <div className="logo" />
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          defaultSelectedKeys={['/']}
-          selectedKeys={[location.pathname]}
-          style={{ lineHeight: '64px' }}
+      <div className="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+        <h5 className="my-0 mr-md-auto font-weight-normal">Katapath Pawura</h5>
+        <nav className="my-2 my-md-0 mr-md-3">
+          <a className="p-2 text-dark" href="#">
+            Support
+          </a>
+        </nav>
+        <a
+          className="btn btn-outline-primary"
+          href="https://getbootstrap.com/docs/4.0/examples/pricing/#"
         >
-          <Menu.Item key="/">
-            <NavLink to="/">
-              <Icon type="home" />
-              <span>Home</span>
-            </NavLink>
-          </Menu.Item>
-          <Menu.Item key="/other">
-            <Icon type="mobile" />
-            <span>Applications</span>
-          </Menu.Item>
-          <Menu.Item key="/notifications">
-            <NavLink to="/notifications">
-              <Icon type="notification" />
-              <span>Notifications</span>
-            </NavLink>
-          </Menu.Item>
-        </Menu>
-      </Header>
+          Sign up
+        </a>
+      </div>
     );
   }
 }
 
-export default withRouter(Navbar);
+export default Navbar;

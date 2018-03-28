@@ -2,8 +2,10 @@ import firebase from '../../firebase';
 
 export const ACTION_SAMPLE = 'ACTION_SAMPLE';
 export const START_FETCHING_THOUGHTS = 'START_FETCHING_THOUGHTS';
+export const START_POSTING_THOUGHTS = 'START_POSTING_THOUGHTS';
 export const ADD_THOUGHTS = 'ADD_THOUGHTS';
 export const FINISH_FETCHING_THOUGHTS = 'FINISH_FETCHING_THOUGHTS';
+export const FINISH_POSTING_THOUGHTS = 'FINISH_POSTING_THOUGHTS';
 
 export function addThoughtsList(thoughts) {
   return {
@@ -18,6 +20,14 @@ export const startFetchingThoughts = () => ({
 
 export const finishFetchingThoughts = () => ({
   type: 'FINISH_FETCHING_THOUGHTS'
+});
+
+export const startPostingThoughts = () => ({
+  type: 'START_POSTING_THOUGHTS'
+});
+
+export const finishPostingThoughts = () => ({
+  type: 'FINISH_POSTING_THOUGHTS'
 });
 
 export function fetchThoughts() {
@@ -44,6 +54,8 @@ export function fetchThoughts() {
 
 export function postThought(thought) {
   return function(dispatch) {
+    dispatch(startPostingThoughts());
+
     let Tht = {
       data: thought
     };
@@ -52,7 +64,9 @@ export function postThought(thought) {
       .ref('thoughts')
       .push();
     Tht.id = newThtRef.key;
-    newThtRef.set(Tht);
+    newThtRef.set(Tht).then(success => {
+      dispatch(finishPostingThoughts());
+    });
   };
 }
 

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Card } from 'antd';
 
 class ThoughtCard extends Component {
   render() {
     return (
-      <div>
-        <Card>
-          <p>
+      <div className="my-3 p-3 bg-white rounded box-shadow">
+        <div className="media text-muted pt-3">
+          <p className="media-body pb-3 mb-0 small lh-125">
+            <strong className="d-block text-gray-dark">@username</strong>
             {this.props.thought.split('\n').map((item, key) => {
               return (
                 <span key={key}>
@@ -16,7 +16,7 @@ class ThoughtCard extends Component {
               );
             })}
           </p>
-        </Card>
+        </div>
       </div>
     );
   }

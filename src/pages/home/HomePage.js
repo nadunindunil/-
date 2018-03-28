@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Input } from 'antd';
-import { Button } from 'antd';
 import Thoughts from './Thoughts';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import * as HomeActions from './HomeActions';
-
-const { TextArea } = Input;
 
 class HomePage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      input: ''
+      input: '',
+      isFetching: this.props.isFetching,
+      isPosting: this.props.isPosting
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -28,25 +26,64 @@ class HomePage extends Component {
     this.setState({ input: e.target.value });
   }
 
-  handleClick() {
+  handleClick(event) {
     console.log(this.state.input);
+    event.preventDefault();
     this.props.actions.postThought(this.state.input);
     this.setState({ input: '' });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
+    this.setState({
+      isFetching: nextProps.isFetching,
+      isPosting: nextProps.isPosting
+    });
   }
 
   render() {
     return (
       <div>
-        <TextArea
+        <div className="container">
+          <main role="main" className="container">
+            <div className="align-items-center p-3 my-3 text-white-50 bg-purple rounded box-shadow">
+              <form>
+                <div className="form-group">
+                  <textarea
+                    className="form-control"
+                    id="exampleFormControlTextarea1"
+                    rows="3"
+                    value={this.state.input}
+                    onChange={this.handleChange}
+                    placeholder="write your thoughts..."
+                  />
+                </div>
+                <div className="form-group add-padding">
+                  <button
+                    type="submit"
+                    className="btn btn-outline-light float-right"
+                    loading={this.state.isPosting}
+                    onClick={this.handleClick}
+                  >
+                    {this.state.isPosting ? 'loading...' : 'Submit'}
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            {this.state.isFetching ? 'loading...' : <Thoughts thoughts={this.props.thoughts} />}
+          </main>
+        </div>
+        {/*<TextArea
           value={this.state.input}
           onChange={this.handleChange}
           placeholder="write your thoughts"
           autosize
         />
-        <Button size="default" type="primary" onClick={this.handleClick}>
+        <Button size="default" type="primary" loading={this.state.isPosting} onClick={this.handleClick}>
           Submit
         </Button>
-        <Thoughts thoughts={this.props.thoughts} />
+        { this.state.isFetching ? <Spin /> : <Thoughts thoughts={this.props.thoughts}/> }*/}
       </div>
     );
   }
@@ -59,7 +96,8 @@ HomePage.propTypes = {
 function mapStateToProps(state, ownProps) {
   return {
     thoughts: state.thoughtsView.thoughts,
-    isFetching: state.thoughtsView.isFetching
+    isFetching: state.thoughtsView.isFetching.isFetching,
+    isPosting: state.thoughtsView.isFetching.isPosting
   };
 }
 

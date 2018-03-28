@@ -24,6 +24,14 @@ const FetchingReducer = function(state = {}, action) {
       return Object.assign({}, state, {
         isFetching: false
       });
+    case types.START_POSTING_THOUGHTS:
+      return Object.assign({}, state, {
+        isPosting: true
+      });
+    case types.FINISH_POSTING_THOUGHTS:
+      return Object.assign({}, state, {
+        isPosting: false
+      });
     default:
       return state;
   }
