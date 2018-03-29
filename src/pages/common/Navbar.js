@@ -10,10 +10,7 @@ class Navbar extends Component {
             Support
           </a>
         </nav>
-        <a
-          className="btn btn-outline-primary"
-          href="https://getbootstrap.com/docs/4.0/examples/pricing/#"
-        >
+        <a className="btn btn-outline-primary" href="#">
           Sign up
         </a>
       </div>

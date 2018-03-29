@@ -6,7 +6,7 @@ class ThoughtCard extends Component {
       <div className="my-3 p-3 bg-white rounded box-shadow">
         <div className="media text-muted pt-3">
           <p className="media-body pb-3 mb-0 small lh-125">
-            <strong className="d-block text-gray-dark">@username</strong>
+            <strong className="d-block text-gray-dark" />
             {this.props.thought.split('\n').map((item, key) => {
               return (
                 <span key={key}>

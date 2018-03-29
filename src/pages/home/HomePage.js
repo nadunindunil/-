@@ -5,6 +5,33 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import * as HomeActions from './HomeActions';
 
+import ReactPlaceholder from 'react-placeholder';
+import 'react-placeholder/lib/reactPlaceholder.css';
+
+import {
+  TextBlock,
+  MediaBlock,
+  TextRow,
+  RectShape,
+  RoundShape
+} from 'react-placeholder/lib/placeholders';
+
+const awesomePlaceholder = (
+  <div>
+    <div className="my-3 p-3 bg-white rounded box-shadow">
+      <TextBlock rows={4} color="#E0E0E0" />
+    </div>
+
+    <div className="my-3 p-3 bg-white rounded box-shadow">
+      <TextBlock rows={4} color="#E0E0E0" />
+    </div>
+
+    <div className="my-3 p-3 bg-white rounded box-shadow">
+      <TextBlock rows={4} color="#E0E0E0" />
+    </div>
+  </div>
+);
+
 class HomePage extends Component {
   constructor(props) {
     super(props);
@@ -65,13 +92,19 @@ class HomePage extends Component {
                     loading={this.state.isPosting}
                     onClick={this.handleClick}
                   >
-                    {this.state.isPosting ? 'loading...' : 'Submit'}
+                    {this.state.isPosting ? 'sending...' : 'Submit'}
                   </button>
                 </div>
               </form>
             </div>
 
-            {this.state.isFetching ? 'loading...' : <Thoughts thoughts={this.props.thoughts} />}
+            <ReactPlaceholder
+              ready={!this.state.isFetching}
+              customPlaceholder={awesomePlaceholder}
+              showLoadingAnimation={true}
+            >
+              <Thoughts thoughts={this.props.thoughts} />
+            </ReactPlaceholder>
           </main>
         </div>
         {/*<TextArea
